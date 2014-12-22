@@ -17,8 +17,8 @@ public class GradeAnalysis {
 	 * Calculate the average grade
 	 * @return average grade
 	 */
-	public int average(int[] grades) {
-		int sum = 0, average;
+	public double average(double[] grades) {
+		double sum = 0, average;
 		for (int i = 0; i < grades.length; i++) {
 			sum += grades[i];
 		}
@@ -31,8 +31,8 @@ public class GradeAnalysis {
 	 * @param grades array
 	 * @return max which is highest grade in grades[]
 	 */
-	public int max(int[] grades) {
-		int max = 0;
+	public double max(double[] grades) {
+		double max = 0;
 		for (int i = 0; i < grades.length; i++) {
 			if (grades[i] > max) max = grades[i];
 		}
@@ -44,8 +44,8 @@ public class GradeAnalysis {
 	 * @param grades array
 	 * @return min which is lowest grade in grades[]
 	 */
-	public int min(int[] grades) {
-		int min = grades[0];
+	public double min(double[] grades) {
+		double min = grades[0];
 		for (int i = 0; i < grades.length; i++) {
 			if (grades[i] < min) min = grades[i];
 		}
@@ -56,7 +56,7 @@ public class GradeAnalysis {
 	 * Prints out a sideways histogram of the grades from grades[]
 	 * @param grades array
 	 */
-	public void histogram(int[] grades) {
+	public void histogram(double[] grades) {
 		String[] histogram = {"  0 - 9|", "10 - 19|", "20 - 29|", "30 - 39|", "40 - 49|",
 				"50 - 59|", "60 - 69|", "70 - 79|", "80 - 89|", "90 - 99|", "   100+|"};
 		for (int i = 0; i < grades.length; i++) {
@@ -82,13 +82,15 @@ public class GradeAnalysis {
 	 * @param grades array
 	 * @return variance of grades in grades[]
 	 */
-	public double variance(int[] grades) {
+	public double variance(double[] grades) {
 		double mean = average(grades);
 		double sum = 0;
 		for (int i = 0; i < grades.length; i++) {
-			sum += (grades[i] - mean);
+			double gradeDiff = grades[i] - mean;
+			double squaredDiff = Math.pow(gradeDiff, 2);
+			sum += squaredDiff;
 		}
-		double variance = Math.pow(sum, 2);
+		double variance = sum/grades.length;
 		return variance;
 	}
 
@@ -97,7 +99,7 @@ public class GradeAnalysis {
 	 * @param grades array
 	 * @return sd which is the standard deviation
 	 */
-	public double standDev(int[] grades) {
+	public double standDev(double[] grades) {
 		double variance = variance(grades);
 		double sd = Math.sqrt(variance);
 		return sd;
@@ -108,8 +110,8 @@ public class GradeAnalysis {
 	 * @param grades array
 	 * @return grades array once sorted
 	 */
-	public int[] sort(int[] grades) {
-		int temp;
+	public double[] sort(double[] grades) {
+		double temp;
 		boolean sorted = false;
 		while (sorted == false) {
 			sorted = true;
@@ -130,7 +132,7 @@ public class GradeAnalysis {
 	 * @param grades array
 	 * @return median grade from grades[]
 	 */
-	public double median(int[] grades) {
+	public double median(double[] grades) {
 		double median;
 		sort(grades);
 		if (grades.length % 2 == 1) {
@@ -147,7 +149,7 @@ public class GradeAnalysis {
 	 * @param grades array
 	 * @return output, which holds the string of sorted numbers
 	 */
-	public String toString(int[] grades) {
+	public String toString(double[] grades) {
 		String output = "";
 		sort(grades);
 		for (int i = 0; i < grades.length - 1; i++) {
